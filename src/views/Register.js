@@ -1,26 +1,44 @@
-import React from "react";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import ChartistGraph from "react-chartist";
+import axios from "axios";
+import React, {useState } from "react";
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
-  Table,
   Container,
   Row,
   Col,
   Form,
-  OverlayTrigger,
-  Tooltip,
-  Header,
   
 } from "react-bootstrap";
 
 
 function  FormFloatingRegister() {
+
+  // const [values, setValues] = useState({
+  //   name:'',
+  //   email:'',
+  //   password:'',
+  //   c_password:'',
+  // })
+
+  const[ name, setName] =useState("");
+  const[ email, setEmail] =useState("");
+  const[ password, setPassword] =useState("");
+  const[ c_password, setCPassword] =useState("");
+
+  // const handleInput =(event) => {
+  //   setValues(prev => ({...prev, [event.target.name] : [event.target.value]}))
+  // }
+
+  const handleSubmit = (event) => {
+    let item = {name, email, password, c_password}
+    event.preventDefault();
+    console.log(item);
+    
+    axios.post('http://localhost/3d-backend/api/register', item )
+    .then(res=> console.log(res))
+    
+  }
   return (
     <>
       <Container fluid>
@@ -36,32 +54,31 @@ function  FormFloatingRegister() {
         <Card.Body>
           <Card.Title></Card.Title>
           <Card.Text>
-          <Form>
+          <Form action="" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter name" />
+                <Form.Control type="text" name="name" value={name}  onChange={(e)=>setName(e.target.value)}  placeholder="Enter name" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control type="email" name="email" value={email}  onChange={(e)=>setEmail(e.target.value)} placeholder="Enter email" />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password" name="password" value={password}  onChange={(e)=>setPassword(e.target.value)} placeholder="Password" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3">
                 <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" placeholder="Confirm Password" />
+                <Form.Control type="password" name="c_password" value={c_password}  onChange={(e)=>setCPassword(e.target.value)} placeholder="Confirm Password" />
                 </Form.Group>
                 <Form.Group className="d-flex mb-3" id="formGridCheckbox">
                   <Form.Check type="checkbox" label="Remember me"  />
                   <a href="#" className="ml-auto">Forgot password?</a>
                 </Form.Group>
-              <Button className="btn-fill form-control"
-                    type="submit"
+              <Button className="btn-fill form-control" type="submit"
                     variant="primary" >
                 Sign Up
               </Button>
