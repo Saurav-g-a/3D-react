@@ -1,70 +1,122 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 // react-bootstrap components
-import {
-  Button,
-  Card,
-  Container,
-  Row,
-  Col,
-  Form, 
-} from "react-bootstrap";
-function  FormFloatingRegister() {
+import { Button, Card, Container, Row, Col, Form } from "react-bootstrap";
+import RValidation from "./validations/register-validation";
 
+function FormFloatingRegister() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [c_password, setCPassword] = useState("");
 
+  const [errors, setError] = useState({});
+
+  const handleSubmit = (event) => {
+    let item = { name, email, password, c_password };
+    event.preventDefault();
+    console.log(item);
+    setError(RValidation(item));
+
+    axios
+      .post("http://localhost/3d-backend/api/register", item)
+      .then((res) => console.log(res));
+  };
   return (
     <>
       <Container fluid>
-       <Row>
-        <Col md=""></Col>
-        <Col md="6">
-        <Card>
-        <Card.Header>
-              <p className="regis_ter text-center">Register Form</p>
-          </Card.Header>
-        <Card.Body>
-          <Card.Title></Card.Title>
-          <Card.Text>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter name" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter password" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter confirm password" />
-                </Form.Group>
-                <Form.Group className="d-flex mb-3" id="formGridCheckbox">
-                  <Form.Check type="checkbox" label="Remember me"  />
-                  <a href="#" className="ml-auto">Forgot password?</a>
-                </Form.Group>
-              <Button className="btn-fill form-control"
-                    type="submit"
-                    variant="primary" >
-                Sign Up
-              </Button>
-                <p className="text-center mt-4">You have an account ?-<a href="Login"  className="text-primary">Login</a></p> 
-          </Form>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-        </Col>
-        <Col md=""></Col>
-       </Row>
-       
+        <Row>
+          <Col md=""></Col>
+          <Col md="6">
+            <Card>
+              <Card.Header>
+                <div className="text-center">
+                  <p>Register Form</p>
+                </div>
+              </Card.Header>
+              <Card.Body>
+                <Card.Title></Card.Title>
+                <Card.Text>
+                  <Form action="" onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicName">
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Enter name"
+                      />
+                      {errors.name && <p> {errors.name} </p>}
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter email"
+                      />
+                      {errors.email && <p> {errors.email} </p>}
+                      <Form.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                      />
+                      {errors.password && <p> {errors.password} </p>}
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Confirm Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        name="c_password"
+                        value={c_password}
+                        onChange={(e) => setCPassword(e.target.value)}
+                        placeholder="Confirm Password"
+                      />
+                      {errors.c_password && <p> {errors.c_password} </p>}
+                    </Form.Group>
+                    <Form.Group className="d-flex mb-3" id="formGridCheckbox">
+                      <Form.Check type="checkbox" label="Remember me" />
+                      <a href="#" className="ml-auto">
+                        Forgot password?
+                      </a>
+                    </Form.Group>
+                    <Button
+                      className="btn-fill form-control"
+                      type="submit"
+                      variant="primary"
+                    >
+                      {" "}
+                      Sign Up
+                    </Button>
+                    <div className="text-center mt-4">
+                      <p>
+                        You have an account ?-
+                        <a href="/Login" className="text-primary">
+                          Login
+                        </a>
+                      </p>
+                    </div>
+                  </Form>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md=""></Col>
+        </Row>
       </Container>
     </>
   );
 }
 
-export default  FormFloatingRegister;
+export default FormFloatingRegister;
