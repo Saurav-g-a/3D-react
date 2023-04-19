@@ -1,37 +1,25 @@
 import React from "react";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import ChartistGraph from "react-chartist";
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
-  Table,
   Container,
   Row,
   Col,
-  Form,
-  OverlayTrigger,
-  Tooltip,
-  Header,
-  
+  Form, 
 } from "react-bootstrap";
-
-
 function  FormFloatingRegister() {
+
+
   return (
     <>
       <Container fluid>
        <Row>
         <Col md=""></Col>
-        <Col md="8">
-        <Card  style={{ width: '30rem' }}>
+        <Col md="6">
+        <Card>
         <Card.Header>
-          <div className="text-center">
-              <p>Register Form</p>
-          </div>
+              <p className="regis_ter text-center">Register Form</p>
           </Card.Header>
         <Card.Body>
           <Card.Title></Card.Title>
@@ -50,11 +38,11 @@ function  FormFloatingRegister() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password" placeholder="Enter password" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" placeholder="Confirm Password" />
+                <Form.Control type="password" placeholder="Enter confirm password" />
                 </Form.Group>
                 <Form.Group className="d-flex mb-3" id="formGridCheckbox">
                   <Form.Check type="checkbox" label="Remember me"  />
@@ -65,9 +53,7 @@ function  FormFloatingRegister() {
                     variant="primary" >
                 Sign Up
               </Button>
-              <div className="text-center mt-4">
-                <p>You have an account ?-<a href="/Login"  className="text-primary">Login</a></p>
-              </div>
+                <p className="text-center mt-4">You have an account ?-<a href="Login"  className="text-primary">Login</a></p> 
           </Form>
           </Card.Text>
         </Card.Body>
@@ -82,16 +68,3 @@ function  FormFloatingRegister() {
 }
 
 export default  FormFloatingRegister;
-
-
-
-
-// import React from 'react';
-// import { MDBInput } from 'mdb-react-ui-kit';
-// function Register() {
-//   return (
-//     <MDBInput label='Example label' id='form1' type='text' />
-//   );
-// }
-
-// export default Register;

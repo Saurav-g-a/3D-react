@@ -819,6 +819,17 @@
 }
 
 
+.log_in{
+  font-size: 25px !important;
+  font-weight: 600 !important;
+  color: darkgray;
+}
+.regis_ter{
+  font-size: 25px !important;
+  font-weight: 600 !important;
+ color: darkgray; 
+}
+
 #formGridCheckbox input{
   opacity: 1 !important;
   visibility: visible !important;
@@ -841,15 +852,21 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   padding: 4px 12px !important;
 }
 
-
-
-.modal-dialog {
-    max-width: 500px;
-    margin: -3.25rem auto !important;
+.modal.show .modal-dialog {
+  transform: translate(0, 11%) !important;
+}
+.modal{
+left: 78px !important;
 }
 
+.modal .modal-content .modal-header {
+  border: -1px solid #E3E3E3;
+}
 
+.modal .modal-content .modal-body{
+  border: 1px solid #E3E3E3;
+}
 
-/* p {
-  margin-top: -16px !important;
-} */
+.bg-light {
+  background-color: #444444!important;
+}

@@ -1,24 +1,20 @@
-import React from "react";
-import ChartistGraph from "react-chartist";
-import  { useState } from 'react';
-import deleteSvg from './../assets/img/delete-themes-svgrepo-com.svg'
-import editSvg from './../assets/img/edit.svg'
+//import React from "react";
+//import  { useState } from 'react';
+ import React, { useState } from 'react';
+import deleteSvg from './../assets/img/delete (2).png';
+import editSvg from './../assets/img/pencil.png';
 import { Modal } from "react-bootstrap";
+import closeButton from 'react-bootstrap/closeButton';
+
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
   Col,
   Form,
-  OverlayTrigger,
-  Tooltip,
-  Header,
 } from "react-bootstrap";
 
 function  ProductList() {
@@ -37,6 +33,7 @@ function  ProductList() {
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
   return (
+    
     <>
       <Container fluid>
        <Row>
@@ -52,19 +49,20 @@ function  ProductList() {
                         </div>
                         <div className="ml-auto">
                         <Button variant="primary" className="btn-fill mx-auto" onClick={handleShow}>
-                                Add Products
-                            </Button>
+                            Add Products
+                        </Button>
                             <Modal show={show} onHide={handleClose}>
                                 <Modal.Header closeButton>
+
                                 <Modal.Title>Add Products</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <Form>
+                                    <Form >
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label>Product Name</Form.Label>
                                     <Form.Control
                                         type="name"
-                                        placeholder="Product Name"
+                                        placeholder="Enter product name"
                                         autoFocus
                                     />
                                     </Form.Group>
@@ -72,7 +70,7 @@ function  ProductList() {
                                     <Form.Label>Product Title</Form.Label>
                                     <Form.Control
                                         type="name"
-                                        placeholder="Product Title"
+                                        placeholder="Enter product title"
                                         autoFocus
                                     />
                                     </Form.Group>
@@ -80,7 +78,7 @@ function  ProductList() {
                                     <Form.Label>Embeded Title</Form.Label>
                                     <Form.Control
                                         type="name"
-                                        placeholder="Product Title"
+                                        placeholder="Enter embeded title"
                                         autoFocus
                                     />
                                     </Form.Group>
@@ -95,11 +93,15 @@ function  ProductList() {
                                     controlId="exampleForm.ControlTextarea1"
                                     >
                                     <Form.Label>Product Description</Form.Label>
-                                    <Form.Control as="textarea" rows={3} />
+                                    <Form.Control as="textarea" rows={3} 
+                                    type="name"
+                                    placeholder="Enter product description"
+                                    />
                                     </Form.Group>                   
                                 </Form>
                                 </Modal.Body>
                                 <Modal.Footer>
+                                
                                 <Button variant="secondary" className="btn-fill ml-auto m-2" onClick={handleClose}>
                                     Close
                                 </Button>
@@ -119,7 +121,7 @@ function  ProductList() {
                       <th className="border-0">Product Name</th>
                       <th className="border-0">Product Title</th>
                       <th className="border-0">Product Description</th>
-                      <th className="border-0">Product Img</th>
+                      <th className="border-0">Product Image</th>
                       <th className="border-0">Action</th>
                     </tr>
                   </thead>
@@ -129,12 +131,10 @@ function  ProductList() {
                       <td>Dakota Rice</td>
                       <td>Niger</td>
                       <td>Curaçao</td>
-                      <td><img src="" alt=""/></td>
+                      <td>Image name</td>
                       <td>
-                        <a><img src={editSvg} alt="" width='20px' height='20px' onClick={handleShow1}/></a>
+                        <img src={editSvg} alt="" width='22px' height='22 px' onClick={handleShow1}/>
                         <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>
-                          {/* <i className="nc-icon nc-simple-add" onClick={handleShow1}></i> */}
-                          {/* <i className="nc-icon nc-simple-remove" onClick={handleShow2}></i> */}
                       </td>
                     </tr>
                     <tr>
@@ -142,12 +142,10 @@ function  ProductList() {
                       <td>Minerva Hooper</td>
                       <td>Curaçao</td>
                       <td>Curaçao</td>
-                      <td><img src="" alt=""/></td>
+                      <td>Image name</td>
                       <td>
                         <img src={editSvg} alt="" width='20px' height='20px' onClick={handleShow1}/>
-                        <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>
-                        {/* <i className="nc-icon nc-simple-add" onClick={handleShow1}></i>
-                        <i className="nc-icon nc-simple-remove" onClick={handleShow2}></i> */}
+                        <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>                    
                       </td>
                     </tr>
                     <tr>
@@ -155,12 +153,10 @@ function  ProductList() {
                       <td>Sage Rodriguez</td>
                       <td>Netherlands</td>
                       <td>Curaçao</td>
-                      <td><img src="" alt=""/></td>
+                      <td>Image name</td>
                       <td>  
                         <img src={editSvg} alt="" width='20px' height='20px' onClick={handleShow1}/>
-                        <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>
-                        {/* <i className="nc-icon nc-simple-add" onClick={handleShow1}></i>
-                        <i className="nc-icon nc-simple-remove" onClick={handleShow2}></i> */}
+                        <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>          
                       </td>
                     </tr>
                     <tr>
@@ -168,12 +164,11 @@ function  ProductList() {
                       <td>Philip Chaney</td>
                       <td>Korea, South</td>
                       <td>Curaçao</td>
-                      <td><img src="" alt=""/></td>
+                      <td>Image name</td>
                       <td>
                       <img src={editSvg} alt="" width='20px' height='20px' onClick={handleShow1}/>
                         <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>
-                        {/* <i className="nc-icon nc-simple-add"></i>
-                        <i className="nc-icon nc-simple-remove" onClick={handleShow2}></i> */}
+                       
                       </td>
                     </tr>
                     <tr>
@@ -181,12 +176,11 @@ function  ProductList() {
                       <td>Doris Greene</td>
                       <td>Malawi</td>
                       <td>Curaçao</td>
-                      <td><img src="" alt=""/></td>
+                      <td>Image name</td>
                       <td>
                       <img src={editSvg} alt="" width='20px' height='20px' onClick={handleShow1}/>
                         <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>
-                        {/* <i className="nc-icon nc-simple-add" onClick={handleShow1}></i>
-                      <i className="nc-icon nc-simple-remove" onClick={handleShow2}></i> */}
+                        
                       </td>
                     </tr>
                     <tr>
@@ -194,12 +188,10 @@ function  ProductList() {
                       <td>Mason Porter</td>
                       <td>Chile</td>
                       <td>Curaçao</td>
-                      <td><img src="" alt=""/></td>
+                      <td>Image name</td>
                       <td>
                         <img src={editSvg} alt="" width='20px' height='20px' onClick={handleShow1}/>
                         <img src={deleteSvg} alt="" width='20px' height='20px' onClick={handleShow2}/>
-                        {/* <i className="nc-icon nc-simple-add" onClick={handleShow1}></i>
-                        <i className="nc-icon nc-simple-remove" onClick={handleShow2}></i> */}
                       </td>
                     </tr>
                   </tbody>
@@ -218,7 +210,7 @@ function  ProductList() {
                       <Form.Label>Product Name</Form.Label>
                       <Form.Control
                           type="name"
-                          placeholder="Product Name"
+                          placeholder="Enter product name"
                           autoFocus
                       />
                       </Form.Group>
@@ -226,7 +218,7 @@ function  ProductList() {
                       <Form.Label>Product Title</Form.Label>
                       <Form.Control
                           type="name"
-                          placeholder="Product Title"
+                          placeholder="Enter product title"
                           autoFocus
                       />
                       </Form.Group>
@@ -234,11 +226,10 @@ function  ProductList() {
                       <Form.Label>Embeded Title</Form.Label>
                       <Form.Control
                           type="name"
-                          placeholder="Product Title"
+                          placeholder="Enter embeded title"
                           autoFocus
                       />
-                      </Form.Group>
-                                        
+                      </Form.Group>                
                       <Form.Group controlId="exampleForm.ControlInput1" className="mb-3">
                           <Form.Label>Product Image</Form.Label>
                           <Form.Control type="file" multiple
@@ -249,7 +240,11 @@ function  ProductList() {
                       controlId="exampleForm.ControlTextarea1"
                       >
                       <Form.Label>Product Description</Form.Label>
-                      <Form.Control as="textarea" rows={3} />
+                      <Form.Control as="textarea" rows={3} 
+                      type="name"
+                      placeholder="Enter product description"
+                      />
+                      
                       </Form.Group>                   
                   </Form>
                 </Modal.Body>
@@ -264,9 +259,9 @@ function  ProductList() {
               </Modal>
               <Modal show={show2} onHide={handleClose2}>
               <Modal.Header closeButton>
-                  <Modal.Title>Delete Confirmation</Modal.Title>
-                  </Modal.Header>
-                    <Modal.Body>
+                  <Modal.Title>Delete Confirmation</Modal.Title>  
+                  </Modal.Header> 
+                    <Modal.Body>                
                       Are you sure you want to delete the this?
                     </Modal.Body>
                     <Modal.Footer>
@@ -280,6 +275,7 @@ function  ProductList() {
               </Modal>
       </Container>
     </>
+    
   );
 }
 

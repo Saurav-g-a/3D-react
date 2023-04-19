@@ -1,35 +1,24 @@
 import React from "react";
-import ChartistGraph from "react-chartist";
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
-  Table,
   Container,
   Row,
   Col,
   Form,
-  OverlayTrigger,
-  Tooltip,
-  Header,
 } from "react-bootstrap";
 
 function  Login() {
-
   return (
     <>
       <Container fluid>
-       <Row>
+      <Row>
         <Col md=""></Col>
-        <Col md="8">
-            <Card  style={{ width: '33rem' }}>
+        <Col md="6">
+            <Card>
             <Card.Header>
-            <div className="text-center">
-                <p>Login Form</p>
-            </div>
+              <p className="log_in text-center">Login Form</p>
             </Card.Header>
             <Card.Body>
             <Card.Title></Card.Title>
@@ -44,12 +33,8 @@ function  Login() {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" placeholder="Enter password" />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm Password" />
-                    </Form.Group>
                     <Form.Group className="d-flex mb-3" id="formGridCheckbox">
                      <Form.Check type="checkbox"  label="Remember me"/>
                      <a href="#" className="ml-auto">Forgot password?</a>
@@ -57,17 +42,14 @@ function  Login() {
                     <Button  className="btn-fill form-control"
                     type="submit"
                     variant="primary">Login</Button>
-                    <div className="text-center mt-4">
-                        <p>Don't have an account ?-<a href="/Login"  className="text-primary">Sign Up</a></p>
-                    </div>
             </Form>
+                      <p className="text-center mt-4">Don't have an account ?-<a href="Register"  className="text-primary">Sign Up</a></p>
             </Card.Text>
             </Card.Body>
             </Card>
         </Col>
         <Col md=""></Col>
-       </Row>
-       
+      </Row>   
       </Container>
     </>
   );
