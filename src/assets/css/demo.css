@@ -850,6 +850,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .form-control {
   padding: 4px 12px !important;
+
 }
 
 .modal.show .modal-dialog {
@@ -868,5 +869,73 @@ left: 78px !important;
 }
 
 .bg-light {
-  background-color: #444444!important;
+  background-color: #e9ecef!important;
+}
+
+
+div.boxx {
+  margin-left: 42px !important;
+  margin-bottom: 21px !important;
+}
+
+/* ////////////switch button////////// */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 3px;
+  left: -5px;
+  right: 4px;
+  bottom: 6px;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+    width: 21px;
+    left: 4px;
+    bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+input[type="checkbox"] {
+  visibility: collapse !important;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 100%;
+}
+
+span.slider.round {
+  margin-left: 6px;
 }

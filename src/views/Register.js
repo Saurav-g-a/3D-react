@@ -102,7 +102,7 @@ function FormFloatingRegister() {
                     <div className="text-center mt-4">
                       <p>
                         You have an account ?-
-                        <a href="/Login" className="text-primary">
+                        <a href="Login" className="text-primary">
                           Login
                         </a>
                       </p>

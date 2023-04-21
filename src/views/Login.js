@@ -77,7 +77,7 @@ function Login() {
                   <div className="text-center mt-4">
                     <p>
                       Don't have an account ?-
-                      <a href="/Login" className="text-primary">
+                      <a href="Register" className="text-primary">
                         Sign Up
                       </a>
                     </p>
