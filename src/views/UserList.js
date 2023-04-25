@@ -3,7 +3,10 @@ import { Modal } from "react-bootstrap";
 import ChartistGraph from "react-chartist";
 import deleteSvg from "./../assets/img/delete (2).png";
 import editSvg from "./../assets/img/pencil.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from "react";
+import axios from "axios";
 // import Modal from 'react-bootstrap/Modal';
 
 // react-bootstrap components
@@ -28,28 +31,119 @@ function  UserList() {
   const [show1, setShow1] = useState(false);
 
   const handleClose1 = () => setShow1(false);
-  const handleShow1 = () => setShow1(true);
+  //const handleShow1 = () => setShow1(true);
 
-  const [show2, setShow2] = useState(false);
+  const fields = { 
+    name:'',
+    description:'',
+    id:0
+ };
+const [form, setForm] = useState(fields);
 
+  const handleShow1 = data => () => {
+    console.log(data)
+    setForm({
+      name:data.name,
+      email:data.email,
+      id:data.id
+    });
+    setShow1(true);
+  }
+
+  /**--------------------------------------------Edit Users-------------------------------------------------- */
+
+  const editUser = (event) => {
+  console.log(form)
+  const fd = new FormData();
+  fd.append('name',form.name)
+  fd.append('email', form.email)  
+  event.preventDefault();
+  axios
+    .post("http://localhost/3d-backend/api/edit-user/"+form.id,fd)
+    .then((res) => {
+      console.log(res)
+      toast.success(res.data.message)
+      get_users();
+      setShow1(false);
+    }
+      );
+ };
+
+ /**-------------------------------------------------------Edit User--------------------------------------------- */
+
+ const onChange = event => {
+  const { name, value } = event.target;
+  console.log(name)
+  console.log(value)
+  setForm(prevState => ({
+    ...prevState,  // shallow copy all previous state
+    [name]: value, // update specific key/value
+  }));
+};
+
+
+  //const [show2, setShow2] = useState(false);
+
+  const [show2, setShow2] =  useState({
+    show: false, // initial values set to false and null
+    id: null,
+  });
+
+const handleSwitch = id => (e) => {
+  const fd = new FormData();
+  fd.append('grant',e.currentTarget.checked==true ? 1 : 0)
+  axios
+  .post("http://localhost/3d-backend/api/edit-grant/"+id, fd)
+  .then((res) => {
+    console.log(res)
+    toast.success(res.data.message)
+    get_users();
+ 
+  }
+    );
+  }
   const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => setShow2(true);
+  const handleShow2 = id => () => {
+    setShow2({
+        show: true,
+        id,
+      });
+    }
+    const get_users = (event) => {
+          fetch('http://localhost/3d-backend/api/user_info')
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setUsers(data.users);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+  }
 
+    const handleDeleteTrue=(event) =>{
+     // console.log(show2.id)
+      axios.delete('http://localhost/3d-backend/api/delete-user/' + show2.id).then((response) => {
+        // this only runs on success
+        console.log("RESPONSE FROM POST", response.data);
+        toast.success(response.data.Message)
+          setShow2({
+            show: false,
+            id:null,
+          });
+          get_users();
+      }, (err) => {
+        console.log("Error While Posting Data", err);
+      });
+    }
 
     const [users, setUsers] = useState([]);
     useEffect(() => {
-      fetch('http://localhost/3d-backend/api/user_info')
-      .then((response) => response.json())
-      .then((data) => {
-         console.log(data);
-         setUsers(data.users);
-      })
-      .catch((err) => {
-         console.log(err.message);
-      });
+      get_users(); 
     },[]);
   return (
     <>
+    <ToastContainer />
       <Container fluid>
        <Row>
        <Col md="12">
@@ -63,55 +157,6 @@ function  UserList() {
                             </p>
                         </div>
                         <div className="ml-auto">
-                        {/* <Button variant="primary" className="btn-fill ms-auto" onClick={handleShow}>
-                                Add Products
-                            </Button>
-                            <Modal show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                <Modal.Title>Add Products</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Form>
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Product Name</Form.Label>
-                                    <Form.Control
-                                        type="name"
-                                        placeholder="Product Name"
-                                        autoFocus
-                                    />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Product Title</Form.Label>
-                                    <Form.Control
-                                        type="name"
-                                        placeholder="Product Title"
-                                        autoFocus
-                                    />
-                                    </Form.Group>
-                                     
-                                    <Form.Group controlId="exampleForm.ControlInput1" className="mb-3">
-                                        <Form.Label>Product Image</Form.Label>
-                                        <Form.Control type="file" multiple
-                                        />
-                                    </Form.Group>
-                                    <Form.Group
-                                    className="mb-3"
-                                    controlId="exampleForm.ControlTextarea1"
-                                    >
-                                    <Form.Label>Product Description</Form.Label>
-                                    <Form.Control as="textarea" rows={3} />
-                                    </Form.Group>                   
-                                </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                <Button variant="secondary" className="btn-fill ml-auto m-2" onClick={handleClose}>
-                                    Close
-                                </Button>
-                                <Button variant="primary" className="btn-fill" onClick={handleClose}>
-                                    Save Changes
-                                </Button>
-                                </Modal.Footer>
-                            </Modal> */}
                         </div>
                         </div>
               </Card.Header>
@@ -133,9 +178,9 @@ function  UserList() {
                             <td>{item.name}</td>
                             <td>{item.email}</td>
                             <td>
-                              <label class="switch">
-                              <input type="checkbox"/>
-                              <span class="slider round"></span>
+                              <label className="switch">
+                              <input type="checkbox" checked={(item.grant==1 ? true : false)} onChange={handleSwitch(item.id)}/>
+                              <span className="slider round"></span>
                               </label>
                             </td>
                             <td>
@@ -145,7 +190,7 @@ function  UserList() {
                                   alt=""
                                   width="20px"
                                   height="20px"
-                                  onClick={handleShow1}
+                                  onClick={handleShow1(item)}
                                 />
                               </a>
                               <img
@@ -153,7 +198,7 @@ function  UserList() {
                                 alt=""
                                 width="20px"
                                 height="20px"
-                                onClick={handleShow2}
+                                onClick={handleShow2(item.id)}
                               />
                             </td>
                           </tr>
@@ -171,7 +216,7 @@ function  UserList() {
             <Modal.Title>Edit Users</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
+            <Form onSubmit={editUser}>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
@@ -179,6 +224,9 @@ function  UserList() {
                 <Form.Label>User Name</Form.Label>
                 <Form.Control
                   type="name"
+                  name="name"
+                  value={form.name}
+                  onChange={onChange}
                   placeholder="User Name"
                   autoFocus
                 />
@@ -190,38 +238,22 @@ function  UserList() {
                 <Form.Label>User Email</Form.Label>
                 <Form.Control
                   type="name"
+                  name="email"
+                  value={form.email}
+                  onChange={onChange}
                   placeholder="User Email"
                   autoFocus
                 />
               </Form.Group>
+
+              <Button
+              variant="primary"
+              type="submit"
+              className="btn-fill"
+            >
+              Save Changes
+            </Button>
           
-              <Form.Group
-                  className="mb-0"
-                  controlId="exampleForm.ControlInput1"
-                  >
-                  <Form.Label>Grant Access</Form.Label>
-                  </Form.Group>
-                  <label class="switch">
-                  <input type="checkbox"/>
-                  <span class="slider round"></span>
-                  </label>
-             
-              {/* <Form.Group
-                controlId="exampleForm.ControlInput1"
-                className="mb-3"
-              >
-                <Form.Label>Product Image</Form.Label>
-                <Form.Control type="file" multiple />
-              </Form.Group> */}
-
-
-              {/* <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Product Description</Form.Label>
-                <Form.Control as="textarea" rows={3} />
-              </Form.Group> */}
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -232,16 +264,9 @@ function  UserList() {
             >
               Close
             </Button>
-            <Button
-              variant="primary"
-              className="btn-fill"
-              onClick={handleClose1}
-            >
-              Save Changes
-            </Button>
           </Modal.Footer>
         </Modal>
-        <Modal show={show2} onHide={handleClose2}>
+        <Modal show={show2.show} onHide={handleClose2}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Confirmation</Modal.Title>
           </Modal.Header>
@@ -257,7 +282,7 @@ function  UserList() {
             <Button
               variant="danger"
               className="btn-fill"
-              onClick={handleClose2}
+              onClick={handleDeleteTrue}
             >
               Delete
             </Button>

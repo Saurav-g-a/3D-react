@@ -1,26 +1,55 @@
 import { event } from "jquery";
 import React, { useState } from "react";
 // react-bootstrap components
-import { Button, Card, Container, Row, Col, Form } from "react-bootstrap";
-import Validation from "./validations/login-validations";
+import { Button, Card, Container, Row, Col, Form,  } from "react-bootstrap";
 import axios from "axios";
-
-function Login() {
+import { useNavigate } from "react-router-dom";
+import Validation from "./validations/login-validations";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Alert from 'react-bootstrap/Alert';
+function  Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [errors, setError] = useState({});
+  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let item = { email, password };
+    console.log(item)
     setError(Validation(item));
     axios
       .post("http://localhost/3d-backend/api/login", item)
-      .then((res) => console.log(res));
+      .then((res) => {
+        // this only runs on success
+        console.log("RESPONSE FROM POST", res.data);
+        toast.success('Login success')
+        navigate("/dashboard");
+        //history.push("/admin");
+        
+      }, (err) => {
+        console.log("Error While Posting Data", err);
+      });
   };
-  return (
+  return ( 
     <>
+
+<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+{/* Same as */}
+<ToastContainer />
       <Container fluid>
         <Row>
           <Col md=""></Col>
@@ -34,7 +63,7 @@ function Login() {
               <Card.Body>
                 <Card.Title></Card.Title>
                 <Card.Text>
-                  <Form action="" onSubmit={handleSubmit}>
+                  <Form action="" Validation onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>User Email </Form.Label>
                       <Form.Control
@@ -44,7 +73,10 @@ function Login() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      {errors.email && <p> {errors.email} </p>}
+                     
+                      {errors.email &&  <Alert variant="danger" className="mt-3" > {errors.email} </Alert>}
+        
+                      
                       <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                       </Form.Text>
@@ -58,7 +90,7 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />
-                      {errors.password && <p> {errors.password} </p>}
+                      {errors.password && <Alert variant="danger" className="mt-3" > {errors.password} </Alert>}
                     </Form.Group>
                     <Form.Group className="d-flex mb-3" id="formGridCheckbox">
                       <Form.Check type="checkbox" label="Remember me" />
