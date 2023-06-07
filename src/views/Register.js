@@ -3,9 +3,9 @@ import React, { useState } from "react";
 // react-bootstrap components
 import { Button, Card, Container, Row, Col, Form } from "react-bootstrap";
 import RValidation from "./validations/register-validation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Alert from 'react-bootstrap/Alert';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Alert from "react-bootstrap/Alert";
 function FormFloatingRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,11 +14,9 @@ function FormFloatingRegister() {
 
   const [errors, setError] = useState({});
 
-
   const passwordsMatch = () => {
     return password === c_password;
-  }
-
+  };
 
   const handleSubmit = (event) => {
     let item = { name, email, password, c_password };
@@ -26,34 +24,32 @@ function FormFloatingRegister() {
     console.log(item);
     setError(RValidation(item));
 
-    axios
-      .post("http://localhost/3d-backend/api/register", item)
-      .then((res) => {
+    fetch.post("http://localhost/3d-backend/api/register", item).then(
+      (res) => {
         // this only runs on success
         console.log("RESPONSE FROM POST", res.data);
-        toast.success('Register success Please verify your email ')
-        
-      }, (err) => {
+        toast.success("Register success Please verify your email ");
+      },
+      (err) => {
         console.log("Error While Posting Data", err);
-      });
+      }
+    );
   };
   return (
     <>
-
-<ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
-{/* Same as */}
-<ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
       <Container fluid>
         <Row>
           <Col md=""></Col>
@@ -77,7 +73,12 @@ theme="light"
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Enter name"
                       />
-                      {errors.name && <Alert variant="danger" className="mt-3" > {errors.name} </Alert>}
+                      {errors.name && (
+                        <Alert variant="danger" className="mt-3">
+                          {" "}
+                          {errors.name}{" "}
+                        </Alert>
+                      )}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Email address</Form.Label>
@@ -88,7 +89,12 @@ theme="light"
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter email"
                       />
-                      {errors.email && <Alert variant="danger" className="mt-3" > {errors.email} </Alert>}
+                      {errors.email && (
+                        <Alert variant="danger" className="mt-3">
+                          {" "}
+                          {errors.email}{" "}
+                        </Alert>
+                      )}
                       <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                       </Form.Text>
@@ -102,7 +108,12 @@ theme="light"
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
                       />
-                      {errors.password && <Alert variant="danger" className="mt-3" > {errors.password} </Alert>}
+                      {errors.password && (
+                        <Alert variant="danger" className="mt-3">
+                          {" "}
+                          {errors.password}{" "}
+                        </Alert>
+                      )}
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label>Confirm Password</Form.Label>
@@ -113,8 +124,12 @@ theme="light"
                         onChange={(e) => setCPassword(e.target.value)}
                         placeholder="Confirm Password"
                       />
-                      {/* {errors.c_password && <Alert variant="danger" className="mt-3" > {errors.c_password} </Alert>} */}
-                      {!passwordsMatch() && <Alert variant="danger" className="mt-3" > Passwords do not match!</Alert>}
+                      {!passwordsMatch() && (
+                        <Alert variant="danger" className="mt-3">
+                          {" "}
+                          Passwords do not match!
+                        </Alert>
+                      )}
                     </Form.Group>
                     <Form.Group className="d-flex mb-3" id="formGridCheckbox">
                       <Form.Check type="checkbox" label="Remember me" />
